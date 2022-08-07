@@ -1,19 +1,30 @@
-import React from 'react'
-import '../App.css'
+import {React, useContext, useState} from 'react'
+import noteContext from '../Context/Notes/NoteContext';
+
 
 const NoteItem = (props) => {
-    const { note } = props
+    const context = useContext(noteContext);
+    const { deleteNote } = context;
+    const { note } = props;
+
+    const handleClick = () => {
+        deleteNote(note._id)
+        console.log("Click")
+        
+    }
     return (
-        <div className='col-md-3'>
-            {/* {note.title}
-            {note.description} */}
-            <div className="card my-3 mx-3">
-                    <div className="card-body">
+        <div className="col-md-3">
+            <div className="card my-3">
+                <div className="card-body">
+                    <div className="d-flex align-items-center">
                         <h5 className="card-title">{note.title}</h5>
-                        <p className="card-text">{note.description}</p>
-                        <i style={{cursor:"pointer"}} className="fa-solid fa-pen mx-2"></i>
-                        <i style={{cursor:"pointer"}} className="fas fa-trash mx-2"></i>
+                        <button className="btn btn-outline-danger mx-2" type='button' style={{fontSize:'11px'}} onClick={handleClick}>DELETE</button>
+                        <button className="btn btn-outline-primary mx-2" type='button' style={{fontSize:'11px'}} >EDIT</button>
+                       
                     </div>
+                    <p className="card-text">{note.description}</p>
+
+                </div>
             </div>
         </div>
     )
