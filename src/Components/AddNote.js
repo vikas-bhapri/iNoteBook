@@ -9,7 +9,8 @@ const AddNote = () => {
 
     const handleClick = (e) =>{
         e.preventDefault()
-        addNote(note.title, note.description, note.tag)
+        // console.log(note.title, note.description, note.tag)
+        addNote(note.title.toString(), note.description.toString(), note.tag.toString())
     }
 
     const onChange = (e) => {
