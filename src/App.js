@@ -14,7 +14,6 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import { useState } from 'react';
 import UserState from './Context/User/UserState';
-import UserDetails from './Components/UserDetails';
 
 function App() {
 
@@ -43,7 +42,6 @@ function App() {
                 <Route path='/about' element={<About />} />
                 <Route path='/login' element={<Login showAlert={showAlert} />} />
                 <Route path='/signup' element={<Signup showAlert={showAlert} />} />
-                <Route path='/details' element={<UserDetails />} />
               </Routes>
             </div>
           </BrowserRouter>
