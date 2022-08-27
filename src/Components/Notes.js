@@ -2,17 +2,22 @@ import { React, useContext, useEffect, useRef, useState } from 'react'
 import noteContext from '../Context/Notes/NoteContext';
 import AddNote from './AddNote';
 import NoteItem from './NoteItem';
+import {useNavigate} from 'react-router-dom'
 
 
-const Notes = () => {
-
+const Notes = (props) => {
+    let navigate = useNavigate()
     const context = useContext(noteContext);
     const { getNotes, notes, editNote } = context
     const [note, setNote] = useState({id:'', etitle:'', edescription:'', etag:''})
 
     useEffect(() => {
-        getNotes();
-    }, [])
+        if(localStorage.getItem('token')){
+            getNotes();
+        } else{
+            navigate('/login')
+        }
+    }, [getNotes, navigate])
 
     const ref = useRef(null)
     const refClose = useRef(null)
@@ -20,7 +25,7 @@ const Notes = () => {
     const updateNote = (currentNote) => {
         ref.current.click();
         setNote({id:currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag})
-
+        
     }
 
     const onChange = (e) => {
@@ -31,11 +36,12 @@ const Notes = () => {
         console.log('updating the note')
         editNote(note.id.toString(), note.etitle.toString(), note.edescription.toString(), note.etag.toString())
         refClose.current.click();
+        props.showAlert("Updated Successfully", "success")
     }
 
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert} />
             <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
@@ -55,7 +61,7 @@ const Notes = () => {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="edescription" className="form-label">Description</label>
-                                    <input type="text" className="form-control" value={note.edescription} id="edescription" name='edescription' onChange={onChange} />
+                                    <textarea style={{resize:'none'}} rows="5" type="text" className="form-control" value={note.edescription} id="edescription" name='edescription' onChange={onChange} ></textarea>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="etag" className="form-label">Tag</label>
@@ -73,10 +79,13 @@ const Notes = () => {
                 </div>
             </div>
             <div>
-                <h2>Your Notes</h2>
+                <h2 style={{marginTop:'100px'}}>Your Notes</h2>
                 <div className="row my-3">
+                    <h4 style={{textAlign:'center', color: 'rgba(0,0,0,0.6)'}}>
+                        {notes.length === 0 && 'No notes to display'}
+                    </h4>
                     {notes.map((note) => {
-                        return <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                        return <NoteItem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
                     })}
                 </div>
 

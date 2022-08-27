@@ -1,17 +1,14 @@
-import {React, useContext} from 'react'
-import noteContext from '../Context/Notes/NoteContext';
-import AddNote from './AddNote';
+import {React} from 'react'
 import Notes from './Notes';
 
-export const Home = () => {
+export const Home = (props) => {
 
-  const context = useContext(noteContext);
 
 
   return (
     <>
     <div className="container my-3">
-     <Notes/>
+     <Notes showAlert={props.showAlert}/>
       </div>
     </>
   )

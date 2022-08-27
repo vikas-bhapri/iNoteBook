@@ -10,21 +10,44 @@ import About from './Components/About';
 import NoteState from './Context/Notes/NoteState';
 import './index.css'
 import Alert from './Components/Alert';
+import Login from './Components/Login';
+import Signup from './Components/Signup';
+import { useState } from 'react';
+import UserState from './Context/User/UserState';
+import UserDetails from './Components/UserDetails';
 
 function App() {
+
+  const [alert, setAlert] = useState(null)
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type
+    })
+    setTimeout(() => {
+      setAlert(null)
+    }, 1500);
+  }
+
   return (
     <>
       <NoteState>
-        <BrowserRouter>
-          <Navbar />
-          <Alert message={'This is an alert'}/>
-          <div className='container'>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path='/about' element={<About />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
+        <UserState>
+          <BrowserRouter>
+            <Navbar showAlert={showAlert} />
+            <Alert alert={alert} />
+            <div className='container'>
+              <Routes>
+                <Route path="/" element={<Home showAlert={showAlert} />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/login' element={<Login showAlert={showAlert} />} />
+                <Route path='/signup' element={<Signup showAlert={showAlert} />} />
+                <Route path='/details' element={<UserDetails />} />
+              </Routes>
+            </div>
+          </BrowserRouter>
+        </UserState>
       </NoteState>
     </>
   );
