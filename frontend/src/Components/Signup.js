@@ -26,7 +26,7 @@ const Signup = (props) => {
     email = email.toString()
     password = password.toString()
     console.log(name, email, password)
-    const response = await fetch("http://localhost:3001/api/auth/createuser", {
+    const response = await fetch("http://18.224.237.123:3001/api/auth/createuser", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

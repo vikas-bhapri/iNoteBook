@@ -1,13 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import userContext from '../Context/User/UserContext';
-import icon from '../Items/userIcon.png'  
+//import userContext from '../Context/User/UserContext';
 
 const Navbar = (props) => {
     let location = useLocation();
     let navigate = useNavigate();
-    const context = useContext(userContext)
-    const { users } = context
+    // const context = useContext(userContext)
+    // const { users } = context
     React.useEffect(() => {
     }, [location]);
     const handleLogout = () =>{
@@ -19,7 +18,7 @@ const Navbar = (props) => {
         <>
             <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
                 <div className="container-fluid">
-                    { !localStorage.getItem('token') ? <a style={{cursor:'pointer'}} className="navbar-brand">iNotebook</a> : <Link className="navbar-brand" to="/">iNotebook</Link>}
+                    { !localStorage.getItem('token') ? <Link to="/login" style={{cursor:'pointer'}} className="navbar-brand">iNotebook</Link> : <Link className="navbar-brand" to="/">iNotebook</Link>}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

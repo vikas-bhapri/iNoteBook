@@ -17,7 +17,7 @@ const Login = (props) => {
     credentials.password = credentials.password.toString();
     // console.log(credentials.email, credentials.password)
     e.preventDefault();
-    const response = await fetch("http://localhost:3001/api/auth/login", {
+    const response = await fetch("http://18.224.237.123:3001/api/auth/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

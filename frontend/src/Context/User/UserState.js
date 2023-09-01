@@ -2,7 +2,7 @@ import UserContext from "./UserContext";
 import React, {useState} from 'react'
 
 const UserState = (props) => {
-    const host = 'http://localhost:3001'
+    const host = 'http://18.224.237.123:3001'
     const [users, setUsers] = useState({})
     let user
     const getUser = async (email, password) => {
